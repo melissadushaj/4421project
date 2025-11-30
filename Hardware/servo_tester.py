@@ -1,7 +1,12 @@
 from time import sleep
-from gpiozero import AngularServo
+from gpiozero import AngularServo, Device
+from gpiozero.pins.pigpio import PiGPIOFactory
 
-SERVO_PIN = 18  
+SERVO_PIN = 18  # BCM numbering (GPIO18)
+
+# Use pigpio as the pin factory
+factory = PiGPIOFactory()
+Device.pin_factory = factory
 
 servo = AngularServo(
     SERVO_PIN,
@@ -27,7 +32,7 @@ def main():
         pass
     finally:
         print("[Servo Test] Releasing servo (no signal)")
-        servo.angle = None  
+        servo.angle = None
 
 if __name__ == "__main__":
     main()
